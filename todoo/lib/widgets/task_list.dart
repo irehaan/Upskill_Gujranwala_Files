@@ -8,12 +8,12 @@ class tasklist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-      const SizedBox(height: 10),
-      tasktile(),
-      tasktile(),
-      tasktile(),
-      tasktile(),
+    return ListView(children: const [
+      SizedBox(height: 10),
+      TaskTile(),
+      TaskTile(),
+      TaskTile(),
+      TaskTile(),
     ]);
   }
 }
