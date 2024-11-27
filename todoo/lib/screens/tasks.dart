@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:todoo/screens/add_tasks.dart';
+import 'package:todoo/screens/counter_get.dart';
 import 'package:todoo/widgets/task_list.dart';
 
 class TaskScreen extends StatelessWidget {
