@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todoo/Controllers/taskController.dart';
 import 'package:todoo/screens/add_tasks.dart';
-import 'package:todoo/screens/counter_get.dart';
+
 import 'package:todoo/widgets/task_list.dart';
 
 class TaskScreen extends StatelessWidget {
@@ -9,6 +10,8 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final taskcontroller = Get.find<Taskcontroller>();
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -66,26 +69,28 @@ class TaskScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        const Row(
+                        Row(
                           children: [
-                            Icon(Icons.book),
-                            SizedBox(width: 5),
-                            Text(
+                            const Icon(Icons.book),
+                            const SizedBox(width: 5),
+                            const Text(
                               'Total Tasks:',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
                               ),
                             ),
-                            Text(
-                              '5',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 70, 70, 70),
-                                fontSize: 15,
-                              ),
-                            ),
+                            Obx(() {
+                              return Text(
+                                '${taskcontroller.taskCount}',
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 70, 70, 70),
+                                  fontSize: 15,
+                                ),
+                              );
+                            }),
                           ],
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -97,7 +102,7 @@ class TaskScreen extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(25),
                               topRight: Radius.circular(25))),
-                      child: const tasklist(),
+                      child: const TaskList(),
                     ),
                   ),
                 ],

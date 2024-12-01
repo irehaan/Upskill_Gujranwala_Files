@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:todoo/Controllers/taskController.dart';
 
 class AddTaskScreen extends StatelessWidget {
   const AddTaskScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String newtaskTitle = '';
+    final taskcontroller = Get.find<Taskcontroller>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -20,10 +24,13 @@ class AddTaskScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        const TextField(
+        TextField(
           autofocus: true,
           textAlign: TextAlign.center,
           cursorColor: Colors.green,
+          onChanged: (newText) {
+            newtaskTitle = newText;
+          },
         ),
         const SizedBox(height: 20),
         Container(
@@ -33,10 +40,13 @@ class AddTaskScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  taskcontroller.addTask(newtaskTitle);
+                  Get.back();
+                },
                 icon: const Icon(
                   Icons.add,
-                  color: Colors.white,
+                  color: Colors.black,
                 )))
       ],
     );
