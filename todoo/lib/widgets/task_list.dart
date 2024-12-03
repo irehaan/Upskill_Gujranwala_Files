@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todoo/Controllers/taskController.dart';
-import 'package:todoo/models/model_task.dart';
 import 'package:todoo/widgets/task_tile.dart';
 
 class TaskList extends StatelessWidget {
