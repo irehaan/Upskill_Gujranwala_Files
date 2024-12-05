@@ -1,5 +1,7 @@
-import 'package:chatify/Screens/home.dart';
+import 'package:chatify/Home/home_screen.dart';
 import 'package:chatify/Screens/signup.dart';
+import 'package:chatify/constants/appColors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,6 +26,23 @@ class SignInState extends State<SignIn> {
 
   bool get areAllfieldsFilled =>
       emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
+
+  Future<void> signInWithEmail() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      Get.to(const HomeScreen(),
+          transition: Transition.fadeIn, duration: const Duration(seconds: 1));
+
+      Get.snackbar('Success', 'User signed up successfully!',
+          backgroundColor: AppColors.successColor,
+          colorText: AppColors.textColor);
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar('Alert Message', e.message ?? 'Sign in failed',
+          backgroundColor: AppColors.alertColor,
+          colorText: AppColors.textColor);
+    }
+  }
 
   void validateForm() {
     setState(() {});
@@ -123,17 +142,7 @@ class SignInState extends State<SignIn> {
                     TextButton(
                       onPressed: areAllfieldsFilled &&
                               formKey.currentState?.validate() == true
-                          ? () {
-                              Get.to(const HomeScreen());
-                              Get.snackbar(
-                                'Success',
-                                'Signed in successfully',
-                                duration: const Duration(seconds: 1),
-                                backgroundColor:
-                                    Colors.lightGreenAccent.withOpacity(0.5),
-                                colorText: Colors.white,
-                              );
-                            }
+                          ? signInWithEmail
                           : null,
                       style: TextButton.styleFrom(
                         minimumSize: const Size(double.infinity, 50),

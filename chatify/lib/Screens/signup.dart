@@ -1,4 +1,6 @@
 import 'package:chatify/Screens/signin.dart';
+import 'package:chatify/constants/appColors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -51,6 +53,33 @@ class SignupState extends State<Signup> {
     phoneController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> signUpWithEmailAndPassword() async {
+    if (formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim());
+
+        Get.to(const SignIn(),
+            transition: Transition.fadeIn,
+            duration: const Duration(seconds: 1));
+
+        Get.snackbar('Success', 'User signed up successfully!',
+            backgroundColor: AppColors.successColor,
+            colorText: AppColors.textColor);
+      } on FirebaseAuthException catch (e) {
+        String errorMessage = 'An error occured, Please try again!';
+
+        if (e.code == 'Email already in use') {
+          errorMessage = 'This email is already in use';
+        }
+        Get.snackbar('Alert Message', errorMessage,
+            backgroundColor: AppColors.alertColor,
+            colorText: AppColors.textColor);
+      }
+    }
   }
 
   @override
@@ -165,20 +194,8 @@ class SignupState extends State<Signup> {
                   ),
                   const SizedBox(height: 20),
                   TextButton(
-                    onPressed: areAllfieldsFilled &&
-                            formKey.currentState?.validate() == true
-                        ? () {
-                            Get.to(const SignIn());
-                            Get.snackbar(
-                              'Success',
-                              'Signed up successfully',
-                              duration: const Duration(seconds: 1),
-                              backgroundColor:
-                                  Colors.lightGreenAccent.withOpacity(0.5),
-                              colorText: Colors.white,
-                            );
-                          }
-                        : null,
+                    onPressed:
+                        areAllfieldsFilled ? signUpWithEmailAndPassword : null,
                     style: TextButton.styleFrom(
                       minimumSize: const Size(double.infinity, 50),
                       side: const BorderSide(color: Colors.white),
