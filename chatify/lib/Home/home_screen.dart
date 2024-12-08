@@ -1,5 +1,4 @@
 import 'package:chatify/Home/calls.dart';
-import 'package:chatify/Home/chat.dart';
 import 'package:chatify/Home/status.dart';
 import 'package:chatify/constants/appColors.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,9 @@ class HomeScreen extends StatelessWidget {
                       color: AppColors.secondaryColor,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Get.to(ChatScreen);
+                    },
                     icon: const Icon(
                       Icons.more_vert,
                       color: AppColors.secondaryColor,
@@ -50,9 +51,9 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             body: const TabBarView(children: [
-              ChatScreen(),
+              // ChatScreen(),
               StatusScreen(),
-              CallScren(),
+              CallScreen(),
             ])));
   }
 }

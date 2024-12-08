@@ -1,8 +1,8 @@
 import 'package:chatify/constants/appColors.dart';
 import 'package:flutter/material.dart';
 
-class CallScren extends StatelessWidget {
-  const CallScren({super.key});
+class CallScreen extends StatelessWidget {
+  const CallScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

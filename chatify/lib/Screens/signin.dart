@@ -1,4 +1,4 @@
-import 'package:chatify/Home/home_screen.dart';
+import 'package:chatify/Home/chatmessage.dart';
 import 'package:chatify/Screens/signup.dart';
 import 'package:chatify/constants/appColors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,7 +31,7 @@ class SignInState extends State<SignIn> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
-      Get.to(const HomeScreen(),
+      Get.to(const ChatScreen(),
           transition: Transition.fadeIn, duration: const Duration(seconds: 1));
 
       Get.snackbar('Success', 'User signed up successfully!',
